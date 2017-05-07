@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3333D72C-9B66-4FEF-A449-67C741CB9F14}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EdwardScissorhands</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\GameDevelop\FBX SDK\2017.0.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>E:\GameDevelop\FBX SDK\2017.0.1\lib\vs2015\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Dragon\Activity.h" />
+    <ClInclude Include="..\Dragon\AnimationClipManager.h" />
+    <ClInclude Include="..\Dragon\AnimationController.h" />
+    <ClInclude Include="..\Dragon\AnimationModelDrawer.h" />
+    <ClInclude Include="..\Dragon\AssimpMeshLoader.h" />
+    <ClInclude Include="..\Dragon\Camera.h" />
+    <ClInclude Include="..\Dragon\CommonType.h" />
+    <ClInclude Include="..\Dragon\DragonEngine.h" />
+    <ClInclude Include="..\Dragon\Drawer.h" />
+    <ClInclude Include="..\Dragon\Entity.h" />
+    <ClInclude Include="..\Dragon\FBXMeshLoader.h" />
+    <ClInclude Include="..\Dragon\FreeType.h" />
+    <ClInclude Include="..\Dragon\GLFWWindowSystem.h" />
+    <ClInclude Include="..\Dragon\InputSystem.h" />
+    <ClInclude Include="..\Dragon\Light.h" />
+    <ClInclude Include="..\Dragon\MathUtility.h" />
+    <ClInclude Include="..\Dragon\Mesh.h" />
+    <ClInclude Include="..\Dragon\MeshLoader.h" />
+    <ClInclude Include="..\Dragon\MeshLoaderFactory.h" />
+    <ClInclude Include="..\Dragon\MeshManager.h" />
+    <ClInclude Include="..\Dragon\Model.h" />
+    <ClInclude Include="..\Dragon\ModelDrawer.h" />
+    <ClInclude Include="..\Dragon\RenderSystem.h" />
+    <ClInclude Include="..\Dragon\ResourceSystem.h" />
+    <ClInclude Include="..\Dragon\Shader.h" />
+    <ClInclude Include="..\Dragon\SimpleModelDrawer.h" />
+    <ClInclude Include="..\Dragon\TextureManager.h" />
+    <ClInclude Include="..\Dragon\Time.h" />
+    <ClInclude Include="..\Dragon\Tiny2D.h" />
+    <ClInclude Include="..\Dragon\Transform.h" />
+    <ClInclude Include="..\Dragon\UI.h" />
+    <ClInclude Include="..\Dragon\UIDrawer.h" />
+    <ClInclude Include="..\Dragon\UIModel.h" />
+    <ClInclude Include="..\Dragon\WindowSystem.h" />
+    <ClInclude Include="..\Dragon\WoodPlane.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Dragon\Activity.cpp" />
+    <ClCompile Include="..\Dragon\AnimationClipManager.cpp" />
+    <ClCompile Include="..\Dragon\AnimationController.cpp" />
+    <ClCompile Include="..\Dragon\AnimationModelDrawer.cpp" />
+    <ClCompile Include="..\Dragon\AssimpMeshLoader.cpp" />
+    <ClCompile Include="..\Dragon\Camera.cpp" />
+    <ClCompile Include="..\Dragon\DragonEngine.cpp" />
+    <ClCompile Include="..\Dragon\Drawer.cpp" />
+    <ClCompile Include="..\Dragon\Entity.cpp" />
+    <ClCompile Include="..\Dragon\FBXMeshLoader.cpp" />
+    <ClCompile Include="..\Dragon\FreeType.cpp" />
+    <ClCompile Include="..\Dragon\GLFWWindowSystem.cpp" />
+    <ClCompile Include="..\Dragon\InputSystem.cpp" />
+    <ClCompile Include="..\Dragon\Light.cpp" />
+    <ClCompile Include="..\Dragon\Main.cpp" />
+    <ClCompile Include="..\Dragon\MathUtility.cpp" />
+    <ClCompile Include="..\Dragon\Mesh.cpp" />
+    <ClCompile Include="..\Dragon\MeshLoader.cpp" />
+    <ClCompile Include="..\Dragon\MeshLoaderFactory.cpp" />
+    <ClCompile Include="..\Dragon\MeshManager.cpp" />
+    <ClCompile Include="..\Dragon\Model.cpp" />
+    <ClCompile Include="..\Dragon\ModelDrawer.cpp" />
+    <ClCompile Include="..\Dragon\RenderSystem.cpp" />
+    <ClCompile Include="..\Dragon\ResourceSystem.cpp" />
+    <ClCompile Include="..\Dragon\Shader.cpp" />
+    <ClCompile Include="..\Dragon\SimpleModelDrawer.cpp" />
+    <ClCompile Include="..\Dragon\TextureManager.cpp" />
+    <ClCompile Include="..\Dragon\Time.cpp" />
+    <ClCompile Include="..\Dragon\Tiny2D.cpp" />
+    <ClCompile Include="..\Dragon\Transform.cpp" />
+    <ClCompile Include="..\Dragon\UI.cpp" />
+    <ClCompile Include="..\Dragon\UIDrawer.cpp" />
+    <ClCompile Include="..\Dragon\UIModel.cpp" />
+    <ClCompile Include="..\Dragon\WindowSystem.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

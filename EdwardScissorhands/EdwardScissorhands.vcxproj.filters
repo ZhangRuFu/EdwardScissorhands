@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Render">
+      <UniqueIdentifier>{d31dbd8c-b27c-4bff-aa31-124cb8b42184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\UI">
+      <UniqueIdentifier>{f0a4fd25-a9e9-4efe-a49e-c54844fc801d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Animation">
+      <UniqueIdentifier>{57376123-03bc-47fe-8978-442b5d449295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Resource">
+      <UniqueIdentifier>{345be128-47d0-47e3-96ba-affa57725c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Model">
+      <UniqueIdentifier>{31a85ab5-4c21-4a9b-9b9e-26d2cfe67ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Animation">
+      <UniqueIdentifier>{e5a1e3d9-ab25-413a-9b59-069a7d242cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI">
+      <UniqueIdentifier>{7ffb1a23-28b9-4ef6-9346-41ec0e206a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Resource">
+      <UniqueIdentifier>{444617a8-a99b-4a1b-b43a-793e0eb49f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Render">
+      <UniqueIdentifier>{8746c449-15a5-4cfc-8a02-51d2678cb026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Model">
+      <UniqueIdentifier>{7431a3df-2c5f-451e-8801-02122f7d774b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Dragon\CommonType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\DragonEngine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Entity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\GLFWWindowSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\InputSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\MathUtility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\MeshManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\RenderSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\ResourceSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\TextureManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Time.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Transform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\WindowSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\WoodPlane.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Activity.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\AnimationClipManager.h">
+      <Filter>头文件\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\AnimationController.h">
+      <Filter>头文件\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\AnimationModelDrawer.h">
+      <Filter>头文件\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\AssimpMeshLoader.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Camera.h">
+      <Filter>头文件\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Drawer.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\FBXMeshLoader.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Light.h">
+      <Filter>头文件\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Mesh.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\MeshLoader.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\MeshLoaderFactory.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Model.h">
+      <Filter>头文件\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\UIModel.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\FreeType.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\ModelDrawer.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Shader.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\SimpleModelDrawer.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\Tiny2D.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\UIDrawer.h">
+      <Filter>头文件\Render</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Dragon\WindowSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Time.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\TextureManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\ResourceSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\RenderSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\MeshManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\MathUtility.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\InputSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\GLFWWindowSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Entity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\DragonEngine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Activity.cpp">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\AnimationClipManager.cpp">
+      <Filter>源文件\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\AnimationController.cpp">
+      <Filter>源文件\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\AnimationModelDrawer.cpp">
+      <Filter>源文件\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Camera.cpp">
+      <Filter>源文件\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\AssimpMeshLoader.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Drawer.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\FBXMeshLoader.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\FreeType.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Light.cpp">
+      <Filter>源文件\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Mesh.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\MeshLoader.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\MeshLoaderFactory.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Model.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\UI.cpp">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\UIModel.cpp">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\UIDrawer.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Tiny2D.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\SimpleModelDrawer.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\Shader.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\ModelDrawer.cpp">
+      <Filter>源文件\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
