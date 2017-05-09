@@ -30,14 +30,33 @@ Model * MeshManager::_LoadModel(BasicMesh basicMesh)
 	return model;
 }
 
+Model * MeshManager::_GetModel(string modelName)
+{
+	if (m_namedMeshMap.find(modelName) != m_namedMeshMap.end())
+		return m_meshes[m_namedMeshMap[modelName]];
+}
+
 Model * MeshManager::LoadModel(string meshPath)
 {
 	return m_instance->_LoadModel(meshPath);
 }
 
+Model * MeshManager::LoadModel(string meshPath, string meshName)
+{
+	Model *model = m_instance->_LoadModel(meshPath);
+	if (model != nullptr)
+		m_instance->m_namedMeshMap[meshName] = m_instance->m_meshMap[meshPath];
+	return model;
+}
+
 Model * MeshManager::LoadModel(BasicMesh basicMesh)
 {
 	return m_instance->_LoadModel(basicMesh);
+}
+
+Model * MeshManager::GetModel(string modelName)
+{
+	return m_instance->_GetModel(modelName);
 }
 
 MeshManager * MeshManager::GetInstance(void)

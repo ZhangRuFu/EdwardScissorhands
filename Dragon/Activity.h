@@ -50,18 +50,7 @@ private:
 public:
 	AddClipListener(ClipBar *clip, ListView *lstView);
 
-	virtual bool onMouse(View &view, const Event &e)
-	{
-		if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
-		{
-			float start = m_clip->GetStartValue();
-			float end = m_clip->GetEndValue();
-			string clipName = m_clip->GetClipName();
-			ClipItem *item = new ClipItem(view.GetActivity(), clipName, start, end);
-			m_lstView->AddItem(item);
-		}
-		return true;
-	}
+	virtual bool onMouse(View &view, const Event &e);
 };
 
 class ImportModelListener : public MouseListener
@@ -70,14 +59,5 @@ private:
 
 
 public:
-	virtual bool onMouse(View &view, const Event &e)
-	{
-		if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
-		{
-			//找到editPath控件获取控件路径
-			//使用MeshManager::LoadModel(path)加载并注册模型
-			//
-		}
-		return true;
-	}
+	virtual bool onMouse(View &view, const Event &e);
 };

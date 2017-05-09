@@ -1,4 +1,7 @@
 #include "Activity.h"
+#include "MeshManager.h"
+#include "AnimationModelDrawer.h"
+#include "AnimationController.h"
 
 Activity::Activity(string id) : ViewGroup(this, id, ivec2(0, 0), View::Dimension::MATCH_PARENT, View::Dimension::MATCH_PARENT)
 {
@@ -49,6 +52,8 @@ void DragonActivity::OnCreate(void)
 
 	AddClipListener *addClipListener = new AddClipListener(m_clipBar, m_listView);
 	m_btnAddClip->SetMouseListener(addClipListener);
+	ImportModelListener *importModelListener = new ImportModelListener();
+	m_btnImport->SetMouseListener(importModelListener);
 
 	AddView(m_btnImport);
 	AddView(m_editPath);
@@ -65,4 +70,32 @@ AddClipListener::AddClipListener(ClipBar * clip, ListView *lstView)
 {
 	m_clip = clip;
 	m_lstView = lstView;
+}
+
+bool AddClipListener::onMouse(View & view, const Event & e)
+{
+	if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
+	{
+		float start = m_clip->GetStartValue();
+		float end = m_clip->GetEndValue();
+		string clipName = m_clip->GetClipName();
+		ClipItem *item = new ClipItem(view.GetActivity(), clipName, start, end);
+		m_lstView->AddItem(item);
+	}
+	return true;
+}
+
+bool ImportModelListener::onMouse(View & view, const Event & e)
+{
+	if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
+	{
+		EditText *editText = dynamic_cast<EditText*>(view.GetActivity()->FindViewByID("editPath"));
+		string path = editText->GetText();
+		SkeletonModel *model = dynamic_cast<SkeletonModel*>(MeshManager::LoadModel(path, "main"));
+		//===============================ÄÚ´æÐ¹Â©=============================
+		Transform *transform = new Transform();
+		AnimationModelDrawer *drawer = AnimationModelDrawer::Create(model, transform);
+		AnimationController *controller = new AnimationController(drawer, model, "main");
+	}
+	return true;
 }

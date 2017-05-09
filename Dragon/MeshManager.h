@@ -25,13 +25,17 @@ private:
 	vector<Model*> m_meshes;							//注册所有游戏中的Model（资源唯一)
 	vector<Model*> m_basicMeshes;						//创建的基本几何体
 	map<string, int> m_meshMap;							//Model路径-索引 映射表
+	map<string, int> m_namedMeshMap;					//命名Model-索引 映射表
 
 public:
 	Model* _LoadModel(string meshPath);					//加载自定义的模型文件
 	Model* _LoadModel(BasicMesh basicMesh);				//加载基本几何体
+	Model* _GetModel(string modelName);					//获取模型数据
 	
 	static Model* LoadModel(string meshPath);
+	static Model* LoadModel(string meshPath, string meshName);
 	static Model* LoadModel(BasicMesh basicMesh);
+	static Model* GetModel(string modelName);
 	static MeshManager* GetInstance(void);
 
 private:

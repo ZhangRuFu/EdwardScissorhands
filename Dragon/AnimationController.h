@@ -19,9 +19,17 @@ class AnimationController
 	float m_curKey;							//当前帧
 	bool m_isPlay;							//是否播放
 
+	static map<string, AnimationController*> m_controllerMap;
+
 public:
 	AnimationController(AnimationModelDrawer *drawer, SkeletonModel *model);
+	AnimationController(AnimationModelDrawer *drawer, SkeletonModel *model, string controllerName);
 	void Pause(void) { m_isPlay = false; }
 	void Play(void) { m_isPlay = true; }
 	void Move(void);
+
+	static AnimationController* GetController(string controllerName);
+
+private:
+	void Init(AnimationModelDrawer * drawer, SkeletonModel * model);
 };
