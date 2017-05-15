@@ -111,7 +111,7 @@ void FontRender::DrawText(const string &str, vec2 position, int fontSize, vec3 c
 
 void FontRender::GetDimension(const string &str, int & width, int & height)
 {
-	width = height = 0;
+	width = 0;
 	for (string::const_iterator iterater = str.begin(); iterater != str.end(); iterater++)
 	{
 		const Character &ch = m_charSet[(*iterater)];

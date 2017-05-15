@@ -27,6 +27,11 @@ GLFWWindowSystem::GLFWWindowSystem(int width, int height, string windowName) : W
 
 	glfwGetFramebufferSize(m_window, &m_frameWidth, &m_frameHeight);
 
+	//键盘动作映射
+	m_keyActionMap[GLFW_PRESS] = KeyMotion::KeyDown;
+	m_keyActionMap[GLFW_RELEASE] = KeyMotion::KeyUp;
+	m_keyActionMap[GLFW_REPEAT] = KeyMotion::KeyRepeat;
+
 	//键盘映射
 	m_keyMap[GLFW_KEY_APOSTROPHE] = KEY_OEM_7;
 	m_keyMap[GLFW_KEY_COMMA] = KEY_OEM_COMMA;
@@ -126,10 +131,7 @@ void GLFWWindowSystem::KeyEvent(GLFWwindow *window, int key, int scancode, int a
 			engineKey = m_glfwInstance->m_keyMap[key];
 	}
 
-	if (action == GLFW_PRESS)
-		keymotion = KeyMotion::KeyDown;
-	else if (action == GLFW_RELEASE)
-		keymotion = KeyMotion::KeyUp;
+	keymotion = m_glfwInstance->m_keyActionMap[action];
 	m_glfwInstance->WindowSystem::KeyEvent(engineKey, keymotion);//父子之间同名函数无法发生重载
 }
 

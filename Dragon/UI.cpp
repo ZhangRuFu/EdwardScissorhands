@@ -2,6 +2,7 @@
 #include "Tiny2D.h"
 #include "Activity.h"
 #include "MathUtility.h"
+#include "AnimationController.h"
 #include <GLM\gtx\transform.hpp>
 
 View::View(Activity *activity, const string &id, ivec2 &position, int layoutWidth, int layoutHeight) : m_id(id), m_relativePosition(position)
@@ -177,11 +178,15 @@ View* ViewGroup::FindViewByID(string id)
 }
 
 
+
+
+//====================================================TextView===========================================
 TextView::TextView(Activity *activity, const string id, ivec2 position, string text, int width, int height, TextAligin texAlign, vec3 color, int fontSize) : View(activity, id, position, width, height), m_text(text)
 {
 	m_texAlign = texAlign;
 	m_fontColor = color;
 	m_fontSize = fontSize;
+	m_texWidth = m_texHeight = 0;
 }
 
 void TextView::OnMeasure(int fatherWidth, int fatherHeight)
@@ -209,6 +214,10 @@ void TextView::OnDraw(Tiny2D * paint)
 	paint->DrawText(m_text, texPosition, m_fontSize, m_fontColor);
 }
 
+
+
+
+//====================================================Button===========================================
 Button::Button(Activity *activity, const string &id, ivec2 position, string text, int width, int height) : TextView(activity, id, position, text, width, height)
 {
 	m_state = ButtonState::Normal;
@@ -268,48 +277,94 @@ bool Button::DispatchEvent(Event & ievent)
 
 
 
-ClipBar::ClipBar(Activity *activity, string id, float len, ivec2 position, int width, int height) : View(activity, id, position, width, height)
+
+
+//====================================================ClipBar===========================================
+ClipBar::ClipBar(Activity *activity, string id, ivec2 position, AnimationController *controller, int width, int height) : View(activity, id, position, width, height)
 {
-	m_length = len;
+	m_isStart = true;
+	m_animationController = controller;
+	m_length = 0;
 	m_start = 0;
 	m_end = m_length;
 	m_minPositionX = m_maxPositionX = 0;
 	char tex[20];
-	sprintf(tex, "Length: %.1f", len);
+	sprintf(tex, "Length: %d", 0);
 	m_lenText = new TextView(m_activity, "", ivec2(0, 0), tex);
 	m_lenText->SetParentView(this);
 	m_editClipName = new EditText(m_activity, "", ivec2(0, 0), "ClipName_01");
-	sprintf(tex, "Start: %.1f", m_start);
+	sprintf(tex, "Start: %d", m_start);
 	m_startText = new TextView(m_activity, "", ivec2(0, 0), tex);
 	m_startText->SetParentView(this);
-	sprintf(tex, "End: %.1f", m_end);
+	sprintf(tex, "End: %d", m_end);
 	m_endText = new TextView(m_activity, id, ivec2(0, 0), tex);
 	m_endText->SetParentView(this);
 
-	m_startButton = new Button(m_activity, "ClipBar.StartButton", ivec2(0, 0), "", ClipBarMeasure::m_slideLen, ClipBarMeasure::m_slideLen);
-	m_startButton->SetParentView(this);
+	m_btnStart = new Button(m_activity, "ClipBar.StartButton", ivec2(0, 0), "", ClipBarMeasure::m_slideLen, ClipBarMeasure::m_slideLen);
+	m_btnStart->SetParentView(this);
 	
-	m_endButton = new Button(m_activity, "ClipBar.EndButton", vec2(0, 0), "", ClipBarMeasure::m_slideLen, ClipBarMeasure::m_slideLen);
-	m_endButton->SetParentView(this);
+	m_btnEnd = new Button(m_activity, "ClipBar.EndButton", ivec2(0, 0), "", ClipBarMeasure::m_slideLen, ClipBarMeasure::m_slideLen);
+	m_btnEnd->SetParentView(this);
+
+	m_btnPlay = new Button(m_activity, "ClipBar.Play", ivec2(0, 0), "Play", View::Dimension::WRAP_CONTENT, View::Dimension::WRAP_CONTENT);
+	m_btnPlay->SetParentView(this);
+
+	m_btnAdd = new Button(m_activity, "ClipBar.AddButton", ivec2(0, 0), ">", 15, 15);
+	m_btnAdd->SetParentView(this);
+
+	m_btnMinus = new Button(m_activity, "ClipBar.MinusButton", ivec2(0, 0), "<", 15, 15);
+	m_btnMinus->SetParentView(this);
+
+
+	//==================================================内存泄漏===================================
 	ClipButtonListener *listener = new ClipButtonListener(this);
-	m_startButton->SetMouseListener(listener);
-	m_endButton->SetMouseListener(listener);
+	m_btnStart->SetMouseListener(listener);
+	m_btnEnd->SetMouseListener(listener);
+	m_btnPlay->SetMouseListener(listener);
+	m_btnAdd->SetMouseListener(listener);
+	m_btnMinus->SetMouseListener(listener);
 }
 
-void ClipBar::SetStartValue(float value)
+void ClipBar::SetStartValue(int value)
 {
 	char str[20];
-	sprintf(str, "Start:%.1f", value);
+	if (value == m_start || m_length == 0)
+		return;
+	value = value < 0 ? 0 : (value >= m_length ? m_length - 1 : value);
+	sprintf(str, "Start:%d", value);
 	m_start = value;
 	m_startText->SetText(str);
+	if (m_animationController != nullptr)
+		m_animationController->SetKey(value);
 }
 
-void ClipBar::SetEndValue(float value)
+void ClipBar::SetEndValue(int value)
 {
 	char str[20];
-	sprintf(str, "End:%.1f", value);
+	if (value == m_end || m_length == 0)
+		return;
+	value = value >= m_length ? m_length - 1 : (value < 0 ? 0 : value);
+	sprintf(str, "End:%d", value);
 	m_end = value;
 	m_endText->SetText(str);
+	if (m_animationController != nullptr)
+		m_animationController->SetKey(value);
+}
+
+void ClipBar::SetLength(int len)
+{
+	char tex[20];
+	m_length = len;
+	sprintf(tex, "Length: %d", m_length);
+	SetStartValue(0);
+	SetEndValue(len-1);
+	m_lenText->SetText(tex);
+}
+
+void ClipBar::SetAnimationController(AnimationController * controller)
+{
+	m_animationController = controller;
+	SetLength(controller->GetLength());
 }
 
 void ClipBar::OnDraw(Tiny2D * paint)
@@ -325,9 +380,12 @@ void ClipBar::OnDraw(Tiny2D * paint)
 	m_startText->OnDraw(paint);
 	m_endText->OnDraw(paint);
 	m_lenText->OnDraw(paint);
-	m_startButton->OnDraw(paint);
-	m_endButton->OnDraw(paint);
+	m_btnStart->OnDraw(paint);
+	m_btnEnd->OnDraw(paint);
+	m_btnPlay->OnDraw(paint);
 	m_editClipName->OnDraw(paint);
+	m_btnAdd->OnDraw(paint);
+	m_btnMinus->OnDraw(paint);
 }
 
 void ClipBar::OnMeasure(int fatherWidth, int fatherHeight)
@@ -336,9 +394,12 @@ void ClipBar::OnMeasure(int fatherWidth, int fatherHeight)
 	m_lenText->OnMeasure(m_width, m_height);
 	m_startText->OnMeasure(m_width, m_height);
 	m_endText->OnMeasure(m_width, m_height);
-	m_startButton->OnMeasure(m_width, m_height);
-	m_endButton->OnMeasure(m_width, m_height);
+	m_btnStart->OnMeasure(m_width, m_height);
+	m_btnEnd->OnMeasure(m_width, m_height);
 	m_editClipName->OnMeasure(m_width, m_height);
+	m_btnPlay->OnMeasure(m_width, m_height);
+	m_btnAdd->OnMeasure(m_width, m_height);
+	m_btnMinus->OnMeasure(m_width, m_height);
 }
 
 void ClipBar::OnPosit(int fatherWidth, int fatherHeight)
@@ -347,6 +408,9 @@ void ClipBar::OnPosit(int fatherWidth, int fatherHeight)
 	ivec2 aP = GetAbsolutePosition();
 	m_lenText->OnPosit(aP.x, aP.y);
 	m_lenText->SetPosition(ivec2(ClipBarMeasure::m_leftOffset, ClipBarMeasure::m_lenToTop));
+
+	m_btnPlay->OnPosit(aP.x, aP.y);
+	m_btnPlay->SetPosition(ivec2(m_width - m_btnPlay->GetWidth() - ClipBarMeasure::m_rightOffset, ClipBarMeasure::m_lenToTop));
 
 	m_editClipName->OnPosit(aP.x, aP.y);
 	m_editClipName->SetPosition(ivec2(ClipBarMeasure::m_leftOffset, m_lenText->GetPositionY() + m_lenText->GetHeight() + ClipBarMeasure::m_interval));
@@ -357,18 +421,26 @@ void ClipBar::OnPosit(int fatherWidth, int fatherHeight)
 	m_endText->OnPosit(aP.x, aP.y);
 	m_endText->SetPosition(ivec2(m_width - m_endText->GetWidth() - ClipBarMeasure::m_rightOffset, m_startText->GetPositionY()));
 	
-	m_startButton->OnPosit(aP.x, aP.y);
-	m_startButton->SetPosition(ivec2(ClipBarMeasure::m_leftOffset - ClipBarMeasure::m_slideLen / 2.0, GetHeight() - ClipBarMeasure::m_slideLen - ClipBarMeasure::m_slideToBottom));
-	m_minPositionX = m_startButton->GetPositionX();
-	m_startButton->AddPosition(m_start * (ClipBarMeasure::m_axisLen / m_length), 0.0);
+	m_btnStart->OnPosit(aP.x, aP.y);
+	m_btnStart->SetPosition(ivec2(ClipBarMeasure::m_leftOffset - ClipBarMeasure::m_slideLen / 2.0, GetHeight() - ClipBarMeasure::m_slideLen - ClipBarMeasure::m_slideToBottom));
+	m_minPositionX = m_btnStart->GetPositionX();
+	if(m_length != 0)
+		m_btnStart->AddPosition(m_start * (ClipBarMeasure::m_axisLen / m_length), 0.0);
 	
-	m_endButton->OnPosit(aP.x, aP.y);
-	m_endButton->SetPosition(ivec2(ClipBarMeasure::m_leftOffset + ClipBarMeasure::m_axisLen - ClipBarMeasure::m_slideLen / 2.0, m_startButton->GetPositionY()));
-	m_maxPositionX = m_endButton->GetPositionX();
-	m_endButton->AddPosition(ClipBarMeasure::m_axisLen - m_end * (ClipBarMeasure::m_axisLen / m_length), 0.0);
+	m_btnEnd->OnPosit(aP.x, aP.y);
+	m_btnEnd->SetPosition(ivec2(ClipBarMeasure::m_leftOffset + ClipBarMeasure::m_axisLen - ClipBarMeasure::m_slideLen / 2.0, m_btnStart->GetPositionY()));
+	m_maxPositionX = m_btnEnd->GetPositionX();
+	if(m_length != 0)
+		m_btnEnd->AddPosition(ClipBarMeasure::m_axisLen - m_end * (ClipBarMeasure::m_axisLen / m_length), 0.0);
 
 	m_axisPosition.x = ClipBarMeasure::m_leftOffset;
 	m_axisPosition.y = m_startText->GetPositionY() + m_startText->GetHeight() + ClipBarMeasure::m_axisToStart;
+
+	m_btnMinus->OnPosit(aP.x, aP.y);
+	m_btnMinus->SetPosition(ivec2(m_axisPosition.x - m_btnMinus->GetWidth() - 3, m_axisPosition.y - 7));
+
+	m_btnAdd->OnPosit(aP.x, aP.y);
+	m_btnAdd->SetPosition(ivec2(m_axisPosition.x + ClipBarMeasure::m_axisLen + 2, m_axisPosition.y - 7));
 }
 
 bool ClipBar::DispatchEvent(Event & ievent)
@@ -377,13 +449,28 @@ bool ClipBar::DispatchEvent(Event & ievent)
 		return false;
 
 	//在本控件区域内
-	if (m_startButton->DispatchEvent(ievent))
+	if (m_btnStart->DispatchEvent(ievent))
+	{
+		m_isStart = true;
 		return true;
+	}
 
-	if (m_endButton->DispatchEvent(ievent))
+	if (m_btnEnd->DispatchEvent(ievent))
+	{
+		m_isStart = false;
+		return true;
+	}
+
+	if (m_btnPlay->DispatchEvent(ievent))
 		return true;
 
 	if (m_editClipName->DispatchEvent(ievent))
+		return true;
+
+	if (m_btnAdd->DispatchEvent(ievent))
+		return true;
+	
+	if (m_btnMinus->DispatchEvent(ievent))
 		return true;
 
 	static bool isDown = false;
@@ -407,6 +494,12 @@ bool ClipBar::DispatchEvent(Event & ievent)
 	return true;
 }
 
+
+
+
+
+
+//====================================================ListView===========================================
 ListView::ListView(Activity *activity, string id, ivec2 position, int width, int height) : View(activity, id, position, width, height)
 {
 	
@@ -494,7 +587,10 @@ bool ListView::DispatchEvent(Event & ievent)
 
 
 
-//ClipItem
+
+
+
+//====================================================ClipItem===========================================
 ClipItem::ClipItem(Activity *activity, string clipName, float start, float end) : ListItem(activity)
 {
 	m_clipName = clipName;
@@ -542,6 +638,9 @@ void ClipItem::OnPosit(int fatherWidth, int fatherHeight)
 	m_texEnd->SetPosition(ivec2(m_width - RightPadding - m_texEnd->GetWidth(), sumHeight));
 }
 
+
+
+//====================================================EditText===========================================
 EditText::EditText(Activity * activity, const string id, ivec2 position, string text, int width, int height, TextAligin texAlign, vec3 color, int fontSize) : TextView(activity, id, position, text, width, height, texAlign, color, fontSize)
 {
 }
@@ -560,13 +659,11 @@ bool EditText::DispatchEvent(Event & ievent)
 {
 	if (ievent.m_hasCharMsg)
 	{
-		//有字符事件
 		SetText(m_text.append(1, ievent.m_codePoint));
 		return true;
 	}
-	else if (ievent.m_hasKeyMsg && ievent.m_keyMotion == KeyMotion::KeyDown)
+	else if (ievent.m_hasKeyMsg && (ievent.m_keyMotion == KeyMotion::KeyDown || ievent.m_keyMotion == KeyMotion::KeyRepeat))
 	{
-		//退格
 		if (ievent.m_keyCode == KEY_BACK)
 		{
 			string str = GetText();
@@ -598,4 +695,76 @@ void EditText::OnPosit(int fatherX, int fatherY)
 	TextView::OnPosit(fatherX, fatherY);
 	m_fontPosition.x = (m_width - m_texWidth) / 2.0;
 	m_fontPosition.y = (m_height - m_texHeight) / 2.0;
+}
+
+
+
+
+bool ClipBar::ClipButtonListener::AddMinusButton(bool isAdd, const Event &e)
+{
+	if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
+	{
+		if (m_clipBar->m_isStart)
+			m_clipBar->AddStartValue(isAdd ? 1 : -1);
+		else
+			m_clipBar->AddEndValue(isAdd ? 1 : -1);
+	}
+	return true;
+}
+
+bool ClipBar::ClipButtonListener::PlayButton(View & view, const Event & e)
+{
+	static bool isPlay = false;
+	if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
+	{
+		if (!isPlay)
+		{
+			Button &button = dynamic_cast<Button&>(view);
+			button.SetText("Pause");
+			//播放片段
+			AnimationController *controller = m_clipBar->GetAnimationController();
+			if (controller != nullptr)
+				controller->PlayClip(new AnimationClip(m_clipBar->GetStartValue(), m_clipBar->GetEndValue()));
+		}
+		else
+		{
+			Button &button = dynamic_cast<Button&>(view);
+			button.SetText("Play");
+			//播放片段
+			AnimationController *controller = m_clipBar->GetAnimationController();
+			if (controller != nullptr)
+				controller->Pause();
+		}
+		isPlay = !isPlay;
+	}
+	return true;
+}
+
+bool ClipBar::ClipButtonListener::StartEndButton(View & view, const Event & e)
+{
+	using namespace std;
+	static bool down = false;
+	static ivec2 position;
+	if (e.m_mouseMotion == MouseMotion::LeftButtonDown)
+	{
+		down = true;
+		position = e.m_mousePosition;
+	}
+	else if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
+		down = false;
+	if (down && e.m_mouseMotion == MouseMotion::MouseMove)
+	{
+		int viewX = view.GetPositionX();
+		float deltaX = e.m_mousePosition.x - position.x;
+		if (viewX + deltaX > m_clipBar->GetSlideMaxX() || viewX + deltaX < m_clipBar->GetSlideMinX())
+			return true;
+		float len = deltaX / ClipBarMeasure::m_axisLen * m_clipBar->GetLength();
+		if ("ClipBar.StartButton" == view.GetViewID())
+			m_clipBar->AddStartValue(len);
+		else
+			m_clipBar->AddEndValue(len);
+		view.AddPosition(deltaX, 0);
+		position = e.m_mousePosition;
+	}
+	return true;
 }

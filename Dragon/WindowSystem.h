@@ -22,7 +22,7 @@ class InputSystem;
 */
 
 enum MouseMotion { NoughtMouse, RightButtonDown, RightButtonUp, LeftButtonDown, LeftButtonUp, MouseMove };
-enum KeyMotion { NoughtKey, KeyDown, KeyUp };
+enum KeyMotion { NoughtKey, KeyDown, KeyUp, KeyRepeat };
 
 struct Event
 {
@@ -67,6 +67,7 @@ protected:
 	int m_frameHeight;
 	string m_windowName;
 	map<int, int> m_keyMap;
+	KeyMotion m_keyActionMap[3];
 	
 
 public:

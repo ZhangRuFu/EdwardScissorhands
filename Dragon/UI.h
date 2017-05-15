@@ -14,6 +14,7 @@ using glm::ivec2;
 class Tiny2D;
 class View;
 class Activity;
+class AnimationController;
 
 /*
 *	MouseListener 鼠标监听器
@@ -172,6 +173,14 @@ public:
 	void SetTextAlign(TextAligin texAlign) { m_texAlign = texAlign; SetLayoutInvalidate(); Invalidate(this); }
 };
 
+/*
+*
+*	引擎版本：Dragon Engine v0.1;
+*	类　　名：EditText
+*	描　　述：文字编辑控件
+*
+*/
+
 class EditText : public TextView
 {
 public:
@@ -232,26 +241,29 @@ public:
 	static const int m_leftOffset = 20;
 	static const int m_rightOffset = 20;
 	static const int m_interval = 10;
-	static const int m_axisToStart = 20;
-	static const int m_axisLen = 210;
-	static const int m_slideLen = 10;
-	static const int m_slideToBottom = 10;
+	static const int m_axisToStart = 20;		//
+	static const int m_axisLen = 210;			//轴长度
+	static const int m_slideLen = 10;			//滑块边长
+	static const int m_slideToBottom = 10;		//滑块距离底部距离
 };
 
 class ClipBar : public View
 {
 public:
-	ClipBar(Activity *activity, string id, float len, ivec2 position, int width = 250, int height = 170);		//构造函数
-	float GetStartValue(void) { return m_start; }
-	float GetEndValue(void) { return m_end; }
-	void SetStartValue(float value);
-	void AddStartValue(float delta) { SetStartValue(delta + m_start); }
-	void AddEndValue(float delta) { SetEndValue(m_end + delta); }
-	void SetEndValue(float value);
-	float GetLength(void) { return m_length; }
+	ClipBar(Activity *activity, string id, ivec2 position, AnimationController *controller = nullptr, int width = 250, int height = 170);		//构造函数
+	int GetStartValue(void) { return m_start; }
+	int GetEndValue(void) { return m_end; }
+	void SetStartValue(int value);
+	void AddStartValue(int delta) { SetStartValue(delta + m_start); }
+	void AddEndValue(int delta) { SetEndValue(m_end + delta); }
+	void SetEndValue(int value);
+	int GetLength(void) { return m_length; }
+	void SetLength(int len);
 	string GetClipName(void) { return m_editClipName->GetText(); }
 	int GetSlideMinX(void) { return m_minPositionX; }
 	int GetSlideMaxX(void) { return m_maxPositionX; }
+	void SetAnimationController(AnimationController *controller);
+	AnimationController* GetAnimationController(void) { return m_animationController; }
 
 	//Override
 	virtual void OnDraw(Tiny2D *paint);
@@ -260,19 +272,28 @@ public:
 	virtual bool DispatchEvent(Event &ievent);
 
 private:
-	float m_length;
-	float m_start;
-	float m_end;
+	bool isStart(void) { return m_isStart; }
+
+private:
+	int m_length;
+	int m_start;
+	int m_end;
 	ivec2 m_axisPosition;
 
 	EditText *m_editClipName;
 	TextView *m_startText;
 	TextView *m_endText;
 	TextView *m_lenText;
-	Button *m_startButton;
-	Button *m_endButton;
+	Button *m_btnStart;
+	Button *m_btnEnd;
+	Button *m_btnPlay;
+	Button *m_btnAdd;
+	Button *m_btnMinus;
+
+	bool m_isStart;
 
 	int m_minPositionX, m_maxPositionX;
+	AnimationController *m_animationController;
 
 	class ClipButtonListener : public MouseListener
 	{
@@ -284,32 +305,22 @@ private:
 
 		virtual bool onMouse(View &view, const Event &e)
 		{
-			using namespace std;
-			static bool down = false;
-			static ivec2 position;
-			if (e.m_mouseMotion == MouseMotion::LeftButtonDown)
-			{
-				down = true;
-				position = e.m_mousePosition;
-			}
-			else if (e.m_mouseMotion == MouseMotion::LeftButtonUp)
-				down = false;
-			if (down && e.m_mouseMotion == MouseMotion::MouseMove)
-			{
-				int viewX = view.GetPositionX();
-				float deltaX = e.m_mousePosition.x - position.x;
-				if (viewX + deltaX > m_clipBar->GetSlideMaxX() || viewX + deltaX < m_clipBar->GetSlideMinX())
-					return true;
-				float len = deltaX / ClipBarMeasure::m_axisLen * m_clipBar->GetLength();
-				if ("ClipBar.StartButton" == view.GetViewID())
-					m_clipBar->AddStartValue(len);
-				else
-					m_clipBar->AddEndValue(len);
-				view.AddPosition(deltaX, 0);
-				position = e.m_mousePosition;
-			}
-			return true;
+			string id = view.GetViewID();
+			if (id == "ClipBar.Play")
+				return PlayButton(view, e);
+			else if (id == "ClipBar.AddButton")
+				return AddMinusButton(true, e);
+			else if (id == "ClipBar.MinusButton")
+				return AddMinusButton(false, e);
+			else
+				return StartEndButton(view, e);
 		}
+	
+		bool AddMinusButton(bool isAdd, const Event &e);
+
+		bool PlayButton(View &view, const Event &e);
+
+		bool StartEndButton(View &view, const Event &e);
 	};
 };
 

@@ -142,8 +142,8 @@ public:
 		m_prePostRotate = prePostRotate;
 	}
 
-	mat4 GetTransform(int key);
-	vec3 GetKeyValue(int key, vector<Key>* Keyvector[3]);
+	mat4 GetTransform(float key);
+	vec3 GetKeyValue(float key, vector<Key>* Keyvector[3]);
 };
 
 //¹Ç÷ÀÐÅÏ¢

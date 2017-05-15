@@ -5,6 +5,12 @@
 
 class Tiny2D;
 
+/*
+*	引擎版本：Dragon Engine v0.1;
+*	类　　名：Activity
+*	描　　述：游戏界面中当前活动界面，一个游戏在不能状态下有不同界面，可以建立多个Activity表示
+*
+*/
 class Activity : public ViewGroup
 {
 public:
@@ -25,6 +31,13 @@ private:
 	View *m_preFocusView;
 };
 
+
+/*
+*	引擎版本：Dragon Engine v0.1;
+*	类　　名：DragonActivity
+*	描　　述：EdwardScissorhands的主界面
+*
+*/
 class DragonActivity : public Activity
 {
 protected:
@@ -55,9 +68,6 @@ public:
 
 class ImportModelListener : public MouseListener
 {
-private:
-
-
 public:
 	virtual bool onMouse(View &view, const Event &e);
 };

@@ -591,7 +591,7 @@ FbxAMatrix FBXModelLoader::GetGeometryTransformation(FbxNode* inNode)
 
 
 
-mat4 BoneAnimation::GetTransform(int key)
+mat4 BoneAnimation::GetTransform(float key)
 {
 	//从帧集合找到指定帧相邻2个帧进行线性插值
 	vec3 trans = GetKeyValue(key, m_translation);
@@ -612,7 +612,7 @@ mat4 BoneAnimation::GetTransform(int key)
 	return transform;
 }
 
-vec3 BoneAnimation::GetKeyValue(int key, vector<Key>* Keyvector[3])
+vec3 BoneAnimation::GetKeyValue(float key, vector<Key>* Keyvector[3])
 {
 	vec3 keyValue;
 	int pre = 0, next = 0;
@@ -630,7 +630,7 @@ vec3 BoneAnimation::GetKeyValue(int key, vector<Key>* Keyvector[3])
 		}
 		if (j == Keyvector[i]->size())
 			pre = next = j - 1;
-		int ratio = pre == next ? 0 : (double)(key - (*Keyvector[i])[pre].m_key) / ((*Keyvector[i])[next].m_key - (*Keyvector[i])[pre].m_key);
+		double ratio = pre == next ? 0 : (double)(key - (*Keyvector[i])[pre].m_key) / ((*Keyvector[i])[next].m_key - (*Keyvector[i])[pre].m_key);
 		keyValue[i] = (*Keyvector[i])[pre].m_value * (1 - ratio) + (*Keyvector[i])[next].m_value * ratio;
 	}
 	return keyValue;

@@ -43,11 +43,11 @@ DragonActivity::DragonActivity(string id) : Activity(id)
 void DragonActivity::OnCreate(void)
 {
 	m_texView = new TextView(this, "texView", ivec2(10, 10), "Edward-Scissorhands v1.0");
-	m_editPath = new EditText(this, "editPath", ivec2(10, 200), "Input Model Path:");
+	m_editPath = new EditText(this, "editPath", ivec2(10, 200), "E://Blade.fbx");
 	m_btnImport = new Button(this, "btnImport", ivec2(10, 150), "ImportModel");
 	m_btnAddClip = new Button(this, "btnClip", ivec2(10, 50), "AddClip");
 	m_btnExport = new Button(this, "btnExport", ivec2(10, 100), "ExportXML");
-	m_clipBar = new ClipBar(this, "clpBar", 10, ivec2(210, 10));
+	m_clipBar = new ClipBar(this, "clpBar", ivec2(210, 10));
 	m_listView = new ListView(this, "listView", ivec2(470, 10));
 
 	AddClipListener *addClipListener = new AddClipListener(m_clipBar, m_listView);
@@ -96,6 +96,8 @@ bool ImportModelListener::onMouse(View & view, const Event & e)
 		Transform *transform = new Transform();
 		AnimationModelDrawer *drawer = AnimationModelDrawer::Create(model, transform);
 		AnimationController *controller = new AnimationController(drawer, model, "main");
+		ClipBar *bar = dynamic_cast<ClipBar*>(view.GetActivity()->FindViewByID("clpBar"));
+		bar->SetAnimationController(controller);
 	}
 	return true;
 }

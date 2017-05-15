@@ -2,6 +2,7 @@
 #include "ResourceSystem.h"
 #include "Time.h"
 
+
 AnimationController::AnimationController(AnimationModelDrawer * drawer, SkeletonModel * model)
 {
 	Init(drawer, model);
@@ -13,20 +14,35 @@ AnimationController::AnimationController(AnimationModelDrawer * drawer, Skeleton
 	m_controllerMap[controllerName] = this;
 }
 
+void AnimationController::PlayClip(AnimationClip * clip)
+{
+	if (clip == nullptr)
+		return;
+	if (m_temporaryClip != nullptr)
+		delete m_temporaryClip;
+	m_currentClip = m_temporaryClip = clip;
+	Play();
+}
+
 void AnimationController::Move(void)
 {
 	//每帧，计算骨骼Transform，交给Drawer
-	if (!m_isPlay)
-		return;
-	m_curTime += Time::GetDeltaTime();
-	if (m_curTime < m_spf)
-		return;
-	m_curTime = 0;
-	m_curKey++;
-	if (m_curKey > m_keyCount)
-		m_curKey -= m_keyCount;
-
-	m_boneManager->UpdateSkeleton(m_curKey, m_boneTransform);
+	if (m_isPlay && m_currentClip)
+	{
+		m_curTime += Time::GetDeltaTime();
+		if (m_curTime < m_spf)
+			return;
+		m_curTime = 0;
+		m_curKey++;
+		if (m_curKey > m_currentClip->m_endKey)
+			m_curKey = m_currentClip->m_startKey;
+	}
+	if (m_needUpdate)
+	{
+		m_boneManager->UpdateSkeleton(m_curKey, m_boneTransform);
+		if (!m_isPlay)
+			m_needUpdate = false;
+	}
 }
 
 AnimationController * AnimationController::GetController(string controllerName)
@@ -47,6 +63,8 @@ void AnimationController::Init(AnimationModelDrawer * drawer, SkeletonModel * mo
 	m_curKey = 0;
 	m_keyCount = model->GetAnimationKeyCount();
 	m_isPlay = false;
+	m_needUpdate = false;
+	m_currentClip = m_temporaryClip = nullptr;
 	ResourceSystem::Register(this);
 }
 
