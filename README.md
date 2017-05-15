@@ -10,12 +10,13 @@ DragonEngine读取模型的同时便可读取动画片段信息，进行动画�
 
 ### 已完成
 * UI界面
+* UI界面事件监听、动画控制-2017年5月15日23:19:40
 
 ### 正在开发
-* UI界面事件监听、动画控制
-
-### 待完成
 * 导出XML动画片段信息文件
 
+### 待完成
+
+
 ---
-![Engine](https://raw.githubusercontent.com/ZhangRuFu/EdwardScissorhands/master/Introduction/2017年5月5日.png)
+![Engine](https://raw.githubusercontent.com/ZhangRuFu/EdwardScissorhands/master/Introduction/2017年5月15日.png)
