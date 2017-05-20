@@ -43,6 +43,12 @@
     <Filter Include="源文件\Model">
       <UniqueIdentifier>{7431a3df-2c5f-451e-8801-02122f7d774b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Tool">
+      <UniqueIdentifier>{7faf25d7-40f5-422b-af8f-0357cde546c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Tool">
+      <UniqueIdentifier>{7f8d687e-a852-4f31-8e2b-c28f42aef8ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Dragon\CommonType.h">
@@ -150,6 +156,12 @@
     <ClInclude Include="..\Dragon\UIDrawer.h">
       <Filter>头文件\Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\Dragon\Serialize.h">
+      <Filter>头文件\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dragon\XSON.h">
+      <Filter>头文件\Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dragon\WindowSystem.cpp">
@@ -253,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="..\Dragon\ModelDrawer.cpp">
       <Filter>源文件\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dragon\XSON.cpp">
+      <Filter>源文件\Tool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

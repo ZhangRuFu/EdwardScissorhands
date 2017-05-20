@@ -1,0 +1,17 @@
+<Soldier>
+    <Clip>
+        <Name>Walk</Name>
+        <Start>0</Start>
+        <End>1077542912</End>
+    </Clip>
+    <Clip>
+        <Name>Run</Name>
+        <Start>0</Start>
+        <End>1079050240</End>
+    </Clip>
+    <Clip>
+        <Name>Attack</Name>
+        <Start>0</Start>
+        <End>1079721984</End>
+    </Clip>
+</Soldier>

@@ -71,3 +71,9 @@ class ImportModelListener : public MouseListener
 public:
 	virtual bool onMouse(View &view, const Event &e);
 };
+
+class ExportXMLListener : public MouseListener
+{
+public:
+	virtual bool onMouse(View &view, const Event &e);
+};

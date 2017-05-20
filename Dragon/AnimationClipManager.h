@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Serialize.h"
 
 using std::string;
 using std::vector;
 
-struct AnimationClip
+struct AnimationClip : public ISerializable
 {
 	string m_clipName;
 	float m_startKey;
@@ -18,16 +19,22 @@ struct AnimationClip
 		m_endKey = endKey;
 		m_clipName = clipName;
 	}
+
+	//@Override
+	virtual string Serialize(void);
+	virtual void Deserialize(string path);
 };
 
-class AnimationClipManager
+class AnimationClipManager : public ISerializable
 {
 public:
 	void AddClip(AnimationClip *clip) { m_clips.push_back(clip); };
-	void ExportXML(string path);
-	void ImportXML(string path);
 	AnimationClip* GetAnimationClip(string clipName);
 	int GetClipCount(void) { return m_clips.size(); }
+
+	//@Override
+	virtual string Serialize(void);
+	virtual void Deserialize(string path);
 
 private:
 	vector<AnimationClip*> m_clips;

@@ -1,14 +1,7 @@
 #include "AnimationClipManager.h"
+#include "XSON.h"
+#include <sstream>
 
-void AnimationClipManager::ExportXML(string path)
-{
-	//导出片段数据到XML文件
-}
-
-void AnimationClipManager::ImportXML(string path)
-{
-	//从XML文件导入片段数据
-}
 
 AnimationClip * AnimationClipManager::GetAnimationClip(string clipName)
 {
@@ -16,4 +9,41 @@ AnimationClip * AnimationClipManager::GetAnimationClip(string clipName)
 		if ((*i)->m_clipName == clipName)
 			return (*i);
 	return nullptr;
+}
+
+string AnimationClipManager::Serialize(void)
+{
+	string xson = "[Soldier]{";
+	for (vector<AnimationClip*>::const_iterator i = m_clips.cbegin(); i != m_clips.cend(); i++)
+	{
+		xson.append((*i)->Serialize());
+	}
+	xson.append("}");
+	return xson;
+}
+
+void AnimationClipManager::Deserialize(string path)
+{
+	//================================待添加==============================
+}
+
+string AnimationClip::Serialize(void)
+{
+	char str[50];
+	sprintf_s<50>(str, "[Clip]{Name:%s;Start:%d;End:%d}", m_clipName.c_str(), m_startKey, m_endKey);
+	string serialStr(str);
+	return serialStr;
+}
+
+void AnimationClip::Deserialize(string path)
+{
+	using std::stringstream;
+	stringstream ss;
+	const map<string, string> *keyValue = XMLHelper::Import(path);
+	ss << keyValue->at("Start");
+	ss >> m_startKey;
+	ss.clear();
+	ss << keyValue->at("End");
+	ss >> m_endKey;
+	m_clipName = keyValue->at("Name");
 }

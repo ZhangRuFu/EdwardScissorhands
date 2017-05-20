@@ -370,6 +370,9 @@ public:
 	virtual void OnDraw(Tiny2D *paint);
 	virtual void OnMeasure(int fatherWidth, int fatherHeight);
 	virtual void OnPosit(int fatherWidth, int fatherHeight);
+	float GetStart(void) { return m_start; }
+	float GetEnd(void) { return m_end; }
+	string GetClipName(void) { return m_clipName; }
 };
 
 /*

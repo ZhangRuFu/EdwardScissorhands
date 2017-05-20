@@ -93,8 +93,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\GameDevelop\FBX SDK\2017.0.1\lib\vs2015\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\GameDevelop\Lib;E:\GameDevelop\FBX SDK\2017.0.1\lib\vs2015\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;TinyXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -169,6 +169,7 @@
     <ClInclude Include="..\Dragon\ModelDrawer.h" />
     <ClInclude Include="..\Dragon\RenderSystem.h" />
     <ClInclude Include="..\Dragon\ResourceSystem.h" />
+    <ClInclude Include="..\Dragon\Serialize.h" />
     <ClInclude Include="..\Dragon\Shader.h" />
     <ClInclude Include="..\Dragon\SimpleModelDrawer.h" />
     <ClInclude Include="..\Dragon\TextureManager.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\Dragon\UIModel.h" />
     <ClInclude Include="..\Dragon\WindowSystem.h" />
     <ClInclude Include="..\Dragon\WoodPlane.h" />
+    <ClInclude Include="..\Dragon\XSON.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dragon\Activity.cpp" />
@@ -216,6 +218,7 @@
     <ClCompile Include="..\Dragon\UIDrawer.cpp" />
     <ClCompile Include="..\Dragon\UIModel.cpp" />
     <ClCompile Include="..\Dragon\WindowSystem.cpp" />
+    <ClCompile Include="..\Dragon\XSON.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
